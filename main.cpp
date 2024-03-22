@@ -1,12 +1,25 @@
 #include <iostream>
+#include <chrono>
+#include <Windows.h>
 
 using namespace std;
 
-int CheckPrimo(int n)
+
+
+void vPrint(string msg, unsigned int temp)
+{
+    for (char a : msg)
+    {
+        cout << a;
+        Sleep(temp);
+    }
+}
+
+int CheckPrimo( unsigned int n)
 {
 
     int cont = 0;
-    for (int i = 2; i < n; i++)
+    for (unsigned int i = 2; i < n; i++)
     {
 
         if (n % i == 0)
@@ -26,11 +39,11 @@ void ContaPrimo(int n)
 
 void Gerador(int n)
 {
-
     n = (n * n) + n + 41;
+    unsigned int teste = CheckPrimo(n);
     cout << "O numero gerado foi: " << n << " ";
-    if (CheckPrimo(n))
-        cout << "N�o eh primo" << endl;
+    if (teste)
+        cout << "Nao eh primo " << "Divisivel por " << teste <<endl;
     else
         cout << "Eh primo" << endl;
 }
@@ -38,7 +51,20 @@ void Gerador(int n)
 int main()
 {
     int n, n2;
-    cout << "Escolha uma opcao entre 1 e 2" << endl;
+    vPrint(" Ola, este programa gera e testa numeros primos",70);
+    cout << endl;
+    vPrint("Escolha uma opcao entre 1 e 2",30);
+    cout << endl;
+    vPrint(" 1 -> Voce digita um numero qualquer e o programa retorna para voce o divisor dele",30);
+    cout << endl;
+    vPrint("note que se o numero for primo o resultado sera (0)",30);
+    cout << endl;
+    vPrint(" 2 -> Voce digita um numero qualquer e o programa aplica ele na formula que gera numeros primos",3); 
+    cout << endl;
+    vPrint("e ele verifica se o numero eh primo.",30);
+    cout << "Formula (n) = (n * n) + n + 41" << endl;
+   
+
     cin >> n2;
 
     switch (n2)
