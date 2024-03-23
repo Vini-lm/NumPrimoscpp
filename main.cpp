@@ -89,8 +89,7 @@ int main()
         break;
 
     default:
-        cout << "Opcao invalida, digite um numero entre 1 e 2" << endl;
-        cin >> n2;
+        cout << "Opcao invalida" << endl;
         break;
     }
 
