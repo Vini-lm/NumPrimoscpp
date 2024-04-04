@@ -1,5 +1,6 @@
 #include <iostream>
 #include <Windows.h>
+#include <cmath>
 
 using namespace std;
 
@@ -17,11 +18,9 @@ void vPrint(string msg, unsigned int temp)
 
 int CheckPrimo(unsigned int &n)
 {
-
     // int cont = 0;    nao me lembro do porque coloquei esse contador então preferi desativa-lo até o momento
     for (unsigned int i = 2; i < n; i++)
     {
-
         if (n % i == 0)
         {
             // cont++;
@@ -54,37 +53,84 @@ void Gerador(unsigned int &n)
         cout << "Eh primo" << endl;
 }
 
-bool CheckNumPerfeito(int n)
+const bool CheckNumPerfeitov1(int &n)
 {
 
     int *Divisores = new int[n];
-
+    int Cont = 1;
     int Soma = 0;
 
     for (int i = 0; i < n; i++)
     {
-        Divisores[i] == 0;
+        Divisores[i] = 0;
     }
 
     Divisores[0] = 1;
-    Divisores[n - 1] = n;
 
     for (int i = 2; i < n; i++)
     {
         if (n % i == 0)
-            Divisores[i] == i;
+            Divisores[Cont++] = i;
     }
 
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < Cont; i++)
         Soma += Divisores[i];
 
     if (Soma == n)
         return true;
 
-    cout << "Soma de " << n << " " << Soma;
     delete[] Divisores;
 
     return false;
+}
+
+void CheckNumPerfeitov2(unsigned int &n)
+{
+
+    int soma = 0;
+    bool resp = false;
+
+    for (int i = 1; i < n; i++)
+    {
+        if (n % i == 0)
+            soma += i;
+    }
+    if (soma == n)
+        resp = true;
+
+    if (resp == true)
+        cout << "Eh um numero perfeito" << endl;
+    else
+        cout << "Nao eh um numero perfeito" << endl;
+}
+
+bool CheckNPerfeito(unsigned int &n)
+{
+    int soma = 0;
+    for (int i = 1; i < n; i++)
+    {
+        if (n % i == 0)
+            soma += i;
+        if (soma > n)
+            return false;
+    }
+
+    if (soma == n)
+        return true;
+
+    return false;
+}
+
+void GeradorNumPerfeito(unsigned int &n)
+{
+    n = pow(2, n - 1) * (pow(2, n) - 1);
+    bool resp = CheckNPerfeito(n);
+    cout << "Numero perfeito gerado -> " << n << endl;
+
+    if (resp)
+        cout << "Eh perfeito" << endl;
+    else
+        cout << "Nao eh perfeito" << endl;
 }
 
 int main()
@@ -93,9 +139,9 @@ int main()
     unsigned int n;
     int n3;
 
-    vPrint(" Ola, este programa gera e testa numeros primos", 40);
+    vPrint(" Ola, este programa gera e testa numeros primos", 10);
     vPrint("Escolha uma opcao entre 1 e 2", 1);
-    vPrint(" 1 -> Voce digita um numero qualquer e o programa retorna para voce o divisor dele", 15);
+    vPrint(" 1 -> Voce digita um numero qualquer e o programa retorna para voce o divisor dele", 5);
     vPrint("note que se o numero for primo o resultado sera (0)", 5);
     vPrint(" 2 -> Voce digita um numero qualquer e o programa aplica ele na formula que gera numeros primos", 5);
     vPrint("e ele verifica se o numero eh primo.", 5);
@@ -124,13 +170,21 @@ int main()
         break;
 
     case 3:
-        cin >> n3;
-        while (n3 > 0)
+        cin >> n;
+        while (n > 0)
         {
-            cout << CheckNumPerfeito(n3) << endl;
-            cin >> n3;
+            CheckNumPerfeitov2(n);
+            cin >> n;
         }
         break;
+
+    case 4:
+        cin >> n;
+        while (n > 0)
+        {
+            GeradorNumPerfeito(n);
+            cin >> n;
+        }
 
     default:
         cout << "Opcao invalida" << endl;
